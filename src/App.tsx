@@ -3,6 +3,7 @@ import './App.css';
 import TrackPage from './components/TrackPage';
 import AnalyzePage from './components/AnalyzePage';
 import Header from './components/Header';
+import LoginPage from './components/LoginPage';
 
 class App extends Component {
   render() {
@@ -12,6 +13,7 @@ class App extends Component {
 
         <div className="container">
           <div className="body">
+            <LoginPage/>
             <TrackPage/>
             <AnalyzePage/>
           </div>
