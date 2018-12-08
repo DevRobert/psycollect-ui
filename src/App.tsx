@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
+import TrackPage from './components/TrackPage';
+import AnalyzePage from './components/AnalyzePage';
+import Header from './components/Header';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <button className="btn btn-primary">My test button!</button>
+      <div className="app">
+        <Header/>
 
-        Some information for you!
+        <div className="container">
+          <div className="body">
+            <TrackPage/>
+            <AnalyzePage/>
+          </div>
+        </div>
       </div>
     );
   }

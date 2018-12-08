@@ -8,7 +8,59 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.app .body {
+  margin: 10px;
+}
+
+.app .body h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.datePicker {
+  text-align: center;
+  padding-top: 5px;
+}
+
+.datePicker .btn {
+  margin-top: -7px;
+}
+
+.datePicker .date {
+  padding: 0px 15px;
+  font-size: 24px;
+}
+
+.emotionList {
+  margin-bottom: 20px;
+}
+
+.emotionTracker {
+  background: #eee;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.emotionTracker .name {
+  float: left;
+}
+
+.emotionTracker .options {
+  float: right;
+}
+
+.activityTracker {
+  background: #eee;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.activityTracker .name {
+  float: left;
+}
+
+.activityTracker .options {
+  float: right;
 }
