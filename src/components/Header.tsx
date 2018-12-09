@@ -14,7 +14,7 @@ class Header extends Component {
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
-                        <NavListItem to="/track">Daily report</NavListItem>
+                        <NavListItem to="/track">Track</NavListItem>
                         <NavListItem to="/analyze">Analyze</NavListItem>
                         <NavListItem to="/account">Account</NavListItem>
                         <NavListItem to="/login">Login</NavListItem>

@@ -1,30 +1,34 @@
-import React, { Component } from 'react';
-import ActivityProvider from '../model/ActivityProvider';
-import Activity from '../model/Activity';
-import Emotion from '../model/Emotion';
-import EmotionProvider from '../model/EmotionProvider';
+import React, { Component } from 'react'
 
-class DatePicker extends Component {
+interface DatePickerProps {
+    date: string,
+    navigateBack: () => void,
+    navigateForward: () => void
+}
+
+class DatePicker extends Component<DatePickerProps> {
     render() {
         return (
             <div className="datePicker">
-                <button className="btn btn-light">⯇</button>
-                <span className="date">Mo 03/12/2018</span>
-                <button className="btn btn-light">⯈</button>
+                <button className="btn btn-light" onClick={() => { this.props.navigateBack()}}>⯇</button>
+                <span className="date">{ this.props.date }</span>
+                <button className="btn btn-light" onClick={() => { this.props.navigateForward()}}>⯈</button>
             </div>
         )
     }
 }
 
-class EmotionTrackerList extends Component {
-    render() {
-        const emotions = new EmotionProvider().getEmotions()
+interface EmotionTrackerListProps {
+    emotions: { name: string, value: number }[]
+}
 
+class EmotionTrackerList extends Component<EmotionTrackerListProps> {
+    render() {
         return (
             <div className="emotionList">
-                { emotions.map(emotion => {
+                { this.props.emotions.map(emotion => {
                     return (
-                        <EmotionTracker emotion={emotion}/>
+                        <EmotionTracker key={emotion.name} name={emotion.name} value={emotion.value} />
                     )
                 })}
             </div>
@@ -32,17 +36,26 @@ class EmotionTrackerList extends Component {
     }
 }
 
+interface EmotionTrackerProps {
+    name: string,
+    value: number
+}
+
 class EmotionTracker extends Component<EmotionTrackerProps> {
+    private setValue(value: number) {
+
+    }
+    
     render() {
         return (
             <div className="emotionTracker">
-                <div className="name">{ this.props.emotion.name }</div>
+                <div className="name">{ this.props.name } ({this.props.value})</div>
                 
                 <div className="options">
                     <div className="btn-group">
-                        <button className="btn btn-light">Weak</button>
-                        <button className="btn btn-light">Medium</button>
-                        <button className="btn btn-light">Strong</button>
+                        <button onClick={() => { this.setValue(1)}} className={"btn " + (this.props.value === 1 ? " btn-success" : "btn-light")}>Weak</button>
+                        <button onClick={() => { this.setValue(2)}} className={"btn " + (this.props.value === 2 ? " btn-success" : "btn-light")}>Medium</button>
+                        <button onClick={() => { this.setValue(3)}} className={"btn " + (this.props.value === 3 ? " btn-success" : "btn-light")}>Strong</button>
                     </div>
                 </div>
 
@@ -52,40 +65,44 @@ class EmotionTracker extends Component<EmotionTrackerProps> {
     }
 }
 
-interface EmotionTrackerProps {
-    emotion: Emotion
+interface ActivityTrackerListProps {
+    activities: { name: string, value: number }[]
 }
 
-class ActivityTrackerList extends Component {
+class ActivityTrackerList extends Component<ActivityTrackerListProps> {
     render() {
-        let activities = new ActivityProvider().getActivities()
-
         return (
             <div className="activityList">
-                { activities.map(activity => {
+                {this.props.activities.map(activity => {
                     return (
-                        <ActivityTracker activity={activity} />
+                        <ActivityTracker key={activity.name} name={activity.name} value={activity.value} />
                     )
                 })}
             </div>
         )
     }
 }
+
+interface ActivityTrackerProps {
+    name: string,
+    value: number
+}
+
 class ActivityTracker extends Component<ActivityTrackerProps> {
-    constructor(props: ActivityTrackerProps) {
-        super(props)
+    private setValue(value: number) {
+
     }
 
     render() {
         return (
             <div className="activityTracker">
-                <div className="name">{this.props.activity.name}</div>
+                <div className="name">{this.props.name} ({this.props.value})</div>
 
                 <div className="options">
                     <div className="btn-group">
-                        <button className="btn btn-light">Not done</button>
-                        <button className="btn btn-light">Medium</button>
-                        <button className="btn btn-light">Intensive</button>
+                        <button onClick={() => { this.setValue(1)}} className={"btn " + (this.props.value === 1 ? " btn-success" : "btn-light")}>Not done</button>
+                        <button onClick={() => { this.setValue(2)}} className={"btn " + (this.props.value === 2 ? " btn-success" : "btn-light")}>Medium</button>
+                        <button onClick={() => { this.setValue(3)}} className={"btn " + (this.props.value === 3 ? " btn-success" : "btn-light")}>Intensive</button>
                     </div>
                 </div>
 
@@ -95,21 +112,36 @@ class ActivityTracker extends Component<ActivityTrackerProps> {
     }
 }
 
-interface ActivityTrackerProps {
-    activity: Activity
+interface TrackPageProps {
+    token: string,
+    info: string,
+    error: string,
+    date: string,
+    emotions: {name: string, value: number}[],
+    activities: {name: string, value: number}[],
+    fetchReport: (token: string, date: string) => void,
+    navigateBack: () => void,
+    navigateForward: () => void
 }
 
-class TrackPage extends Component {
+class TrackPage extends Component<TrackPageProps> {
+    componentDidMount() {
+        this.props.fetchReport(this.props.token, this.props.date)
+    }
+
     render() {
-        return (            
+        return (
             <div>
-                <DatePicker/>
+                {this.props.info && (<div className="alert alert-info">{this.props.info}</div>)}
+                {this.props.error && (<div className="alert alert-danger">{this.props.error}</div>)}
+
+                <DatePicker date={this.props.date} navigateBack={this.props.navigateBack} navigateForward={this.props.navigateForward}/>
 
                 <h2>Emotions</h2>
-                <EmotionTrackerList/>
+                <EmotionTrackerList emotions={this.props.emotions}/>
 
                 <h2>Activities</h2>
-                <ActivityTrackerList/>
+                <ActivityTrackerList activities={this.props.activities}/>
             </div>
         )
     }

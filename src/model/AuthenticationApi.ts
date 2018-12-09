@@ -1,9 +1,11 @@
+import { apiBaseUri } from "./ApiHelpers";
+
 interface LoginResponse {
     token: string
 }
 
 export async function login(email: string, password: string): Promise<LoginResponse> {
-    const requestUri = 'http://localhost:3001/login'
+    const requestUri = apiBaseUri + 'login'
 
     const response = await fetch(requestUri, {
         method: 'POST',

@@ -1,10 +1,17 @@
 import { combineReducers } from "redux";
-import DailyReportReducer from './DailyReport'
+import TrackReducer from './Track'
 import AnalyzeReducer from './Analyze'
 import LoginReducer from './Login'
+import { LoginState } from './Login'
+import { TrackState } from './Track'
+
+export interface State {
+    login: LoginState,
+    track: TrackState
+}
 
 export default combineReducers({
-    dailyReport: DailyReportReducer,
+    track: TrackReducer,
     analyze: AnalyzeReducer,
     login: LoginReducer
 })

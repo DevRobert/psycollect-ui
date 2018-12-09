@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import LoginPage from "../components/LoginPage";
 import { Dispatch } from "redux";
-import { login } from "../actions";
+import { login } from "../actions/Login";
 
 const mapStateToProps = (state: any) => {
     return {
