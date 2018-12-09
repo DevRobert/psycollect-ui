@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import NavListItem from './NavListItem';
 
 class Header extends Component {
     render() {
         return (
             <div className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a className="navbar-brand" href="#">PsyCollect</a>
+                <Link to="/" className="navbar-brand">PsyCollect</Link>
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
                     <span className="navbar-toggler-icon"></span>
@@ -12,18 +14,11 @@ class Header extends Component {
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
-                            <a className="nav-link" href="#">Daily report</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Analyze</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Account</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Logout</a>
-                        </li>
+                        <NavListItem to="/track">Daily report</NavListItem>
+                        <NavListItem to="/analyze">Analyze</NavListItem>
+                        <NavListItem to="/account">Account</NavListItem>
+                        <NavListItem to="/login">Login</NavListItem>
+                        <NavListItem to="/logout">Logout</NavListItem>
                     </ul>
                 </div>
             </div>
