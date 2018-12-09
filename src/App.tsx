@@ -3,12 +3,12 @@ import './App.css'
 import TrackPage from './components/TrackPage'
 import AnalyzePage from './components/AnalyzePage'
 import Header from './components/Header'
-import LoginPage from './components/LoginPage'
 import { createStore, applyMiddleware } from 'redux'
 import rootReducer from './reducers/index'
 import thunkMiddleware from 'redux-thunk'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import LoginContainer from './containers/LoginContainer';
 
 const store = createStore(
   rootReducer,
@@ -30,7 +30,7 @@ class App extends Component {
             <div className="container">
               <div className="body">
                   <Switch>
-                    <Route path="/login" component={LoginPage}/>
+                    <Route path="/login" component={LoginContainer}/>
                     <Route path="/track" component={TrackPage}/>
                     <Route path="/analyze" component={AnalyzePage}/>
                   </Switch>
