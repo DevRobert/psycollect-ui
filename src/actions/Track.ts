@@ -13,6 +13,11 @@ export const PUSH_DAILY_REPORT_FAILED = 'PUSH_DAILY_REPORT_FAILED'
 export const NAVIGATE_BACK = 'NAVIGATE_BACK'
 export const NAVIGATE_FORWARD = 'NAVIGATE_FORWARD'
 
+export const SET_EMOTION_VALUE = 'SET_EMOTION_VALUE'
+export const SET_ACTIVITY_VALUE = 'SET_ACTIVITY_VALUE'
+
+// FetchDailyReport
+
 function fetchDailyReportRequested() {
     return {
         type: FETCH_DAILY_REPORT_REQUESTED
@@ -34,13 +39,15 @@ function fetchDailyReportFailed(error: Error) {
     }
 }
 
-export function fetchDailyReport(token: string, date: string): any {
-    return (dispatch: Dispatch) => {
+export function fetchDailyReport(): any {
+    return (dispatch: Dispatch, getState: () => State) => {
         dispatch(fetchDailyReportRequested())
 
+        const state = getState()
+
         TrackApi.getDayReport({
-            token,
-            date
+            token: state.login.token,
+            date: state.track.date
         }).then(response => {
             dispatch(fetchDailyReportSuceeded(response.emotions, response.activities))
         }).catch(error => {
@@ -48,6 +55,8 @@ export function fetchDailyReport(token: string, date: string): any {
         })
     }
 }
+
+// PushDailyReport
 
 function pushDailyReportRequested() {
     return {
@@ -68,13 +77,27 @@ function pushDailyReportFailed(error: Error) {
     }
 }
 
-export function pushDailyReport(token: string, date: string, emotions: {[name: string]: number}, activities: {[name: string]: number}) {
-    return (dispatch: Dispatch) => {
+function pushDailyReport(): any {
+    return (dispatch: Dispatch, getState: () => State) => {
         dispatch(pushDailyReportRequested())
 
+        const state = getState()
+
+        let emotions: {[name: string]: number} = {}
+
+        state.track.emotions.forEach(emotion => {
+            emotions[emotion.name] = emotion.value
+        })
+
+        let activities: {[name: string]: number} = {}
+
+        state.track.activities.forEach(activity => {
+            activities[activity.name] = activity.value
+        })
+
         TrackApi.setDayReport({
-            token,
-            date,
+            token: state.login.token,
+            date: state.track.date,
             emotions,
             activities
         }).then(response => {
@@ -85,32 +108,54 @@ export function pushDailyReport(token: string, date: string, emotions: {[name: s
     }
 }
 
-function startNavigateBack() {
-    return {
-        type: NAVIGATE_BACK
+// SetEmotionValue
+
+export function setEmotionValue(name: string, value: number): any {
+    return (dispatch: Dispatch, getState: () => State) => {
+        dispatch({
+            type: SET_EMOTION_VALUE,
+            name,
+            value
+        })
+
+        dispatch(pushDailyReport())
     }
 }
+
+// SetActivityValue
+
+export function setActivityValue(name: string, value: number): any {
+    return (dispatch: Dispatch, getState: () => State) => {
+        dispatch({
+            type: SET_ACTIVITY_VALUE,
+            name,
+            value
+        })
+
+        dispatch(pushDailyReport())
+    }
+}
+
+// NavigateBack
 
 export function navigateBack(): any {
-    return (dispatch: Dispatch, getState: () => State) => {
-        dispatch(startNavigateBack())
+    return (dispatch: Dispatch) => {
+        dispatch({
+            type: NAVIGATE_BACK
+        })
 
-        const state = getState()
-        dispatch(fetchDailyReport(state.login.token, state.track.date))
+        dispatch(fetchDailyReport())
     }
 }
 
-function startNavigateForward() {
-    return {
-        type: NAVIGATE_FORWARD
-    }
-}
+// NavigateForward
 
 export function navigateForward(): any {
-    return (dispatch: Dispatch, getState: () => State) => {
-        dispatch(startNavigateForward())
+    return (dispatch: Dispatch) => {
+        dispatch({
+            type: NAVIGATE_FORWARD
+        })
 
-        const state = getState()
-        dispatch(fetchDailyReport(state.login.token, state.track.date))
+        dispatch(fetchDailyReport())
     }
 }

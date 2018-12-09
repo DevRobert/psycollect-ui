@@ -15,7 +15,7 @@ export async function setDayReport(request: SetDayReportRequest): Promise<SetDay
     const requestUri = apiBaseUri + 'tracking/' + request.date
 
     const response = await fetch(requestUri, {
-        method: 'POST',
+        method: 'PUT',
         headers: new Headers({
             'Accept': 'application/json',
             'Content-Type': 'application/json',

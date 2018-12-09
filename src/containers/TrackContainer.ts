@@ -1,12 +1,11 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { fetchDailyReport, navigateBack, navigateForward } from "../actions/Track";
+import { fetchDailyReport, navigateBack, navigateForward, setEmotionValue, setActivityValue } from "../actions/Track";
 import { State } from "../reducers";
 import TrackPage from "../components/TrackPage";
 
 const mapStateToProps = (state: State) => {
     return {
-        token: state.login.token,
         info: state.track.info,
         error: state.track.error,
         date: state.track.date,
@@ -17,14 +16,20 @@ const mapStateToProps = (state: State) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        fetchReport: (token: string, date: string) => {
-            dispatch(fetchDailyReport(token, date))
+        fetchReport: () => {
+            dispatch(fetchDailyReport())
         },
         navigateBack: () => {
             dispatch(navigateBack())
         },
         navigateForward: () => {
             dispatch(navigateForward())
+        },
+        setEmotionValue: (name: string, value: number): void => {
+            dispatch(setEmotionValue(name, value))
+        },
+        setActivityValue: (name: string, value: number): void => {
+            dispatch(setActivityValue(name, value))
         }
     }
 }

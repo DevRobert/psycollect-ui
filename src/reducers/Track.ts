@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { NAVIGATE_BACK, NAVIGATE_FORWARD, FETCH_DAILY_REPORT_REQUESTED, FETCH_DAILY_REPORT_SUCCEEDED, FETCH_DAILY_REPORT_FAILED, PUSH_DAILY_REPORT_REQUESTED, PUSH_DAILY_REPORT_FAILED, PUSH_DAILY_REPORT_SUCCEEDED } from "../actions/Track";
+import { NAVIGATE_BACK, NAVIGATE_FORWARD, FETCH_DAILY_REPORT_REQUESTED, FETCH_DAILY_REPORT_SUCCEEDED, FETCH_DAILY_REPORT_FAILED, PUSH_DAILY_REPORT_REQUESTED, PUSH_DAILY_REPORT_FAILED, PUSH_DAILY_REPORT_SUCCEEDED, SET_EMOTION_VALUE, SET_ACTIVITY_VALUE } from "../actions/Track";
 
 export interface TrackState {
     date: string,
@@ -57,6 +57,36 @@ export default (state: TrackState = defaultState, action: AnyAction): TrackState
                 ...state,
                 info: "",
                 error: action.error.message
+            }
+
+        case SET_EMOTION_VALUE:
+            return {
+                ...state,
+                emotions: state.emotions.map(emotion => {
+                    if(emotion.name === action.name) {
+                        return {
+                            name: action.name,
+                            value: action.value
+                        }
+                    }
+
+                    return emotion
+                })
+            }
+
+        case SET_ACTIVITY_VALUE:
+            return {
+                ...state,
+                activities: state.activities.map(activity => {
+                    if(activity.name === action.name) {
+                        return {
+                            name: action.name,
+                            value: action.value
+                        }
+                    }
+
+                    return activity
+                })
             }
 
         case PUSH_DAILY_REPORT_REQUESTED:
