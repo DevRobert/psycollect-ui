@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import './App.css'
-import AnalyzePage from './components/AnalyzePage'
-import Header from './components/Header'
 import { createStore, applyMiddleware } from 'redux'
 import rootReducer from './reducers/index'
 import thunkMiddleware from 'redux-thunk'
 import { Provider } from 'react-redux'
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import LoginContainer from './containers/LoginContainer';
-import TrackContainer from './containers/TrackContainer';
+import { BrowserRouter } from 'react-router-dom';
+import Body from './components/Body';
+import Header from './components/Header';
 
 const store = createStore(
   rootReducer,
@@ -19,23 +17,32 @@ store.subscribe(() => {
   console.log(store.getState())
 })
 
-class App extends Component {
+interface AppState {
+  loggedIn: boolean
+}
+
+class App extends Component<{}, AppState> {
+  constructor(props: any) {
+    super(props)
+
+    this.state = {
+      loggedIn: false
+    }
+
+    store.subscribe(() => {
+      this.setState({
+        loggedIn: store.getState().login.loggedIn
+      })
+    })
+  }
+
   render() {
     return (
       <Provider store={store}>
         <BrowserRouter>
           <div className="app">
-            <Header/>
-
-            <div className="container">
-              <div className="body">
-                  <Switch>
-                    <Route path="/login" component={LoginContainer}/>
-                    <Route path="/track" component={TrackContainer}/>
-                    <Route path="/analyze" component={AnalyzePage}/>
-                  </Switch>
-              </div>
-            </div>
+            <Header loggedIn={this.state.loggedIn}/>
+            <Body loggedIn={this.state.loggedIn}/>
           </div>
         </BrowserRouter>
       </Provider>

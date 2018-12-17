@@ -1,11 +1,12 @@
 import { Dispatch, AnyAction } from "redux";
 import * as AuthenticationApi from '../model/AuthenticationApi'
 
-// Login
-
 export const LOGIN_REQUESTED = 'LOGIN_REQUESTED'
 export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED'
 export const LOGIN_FAILED = 'LOGIN_FAILED'
+export const LOGOUT = 'LOGOUT'
+
+// Login
 
 function loginRequested() {
     return {
@@ -38,5 +39,13 @@ export function login(email: string, password: string): any {
         catch(e) {
             dispatch(loginFailed(e))
         }
+    }
+}
+
+// Logout
+
+export function logout() {
+    return {
+        type: LOGOUT
     }
 }
