@@ -5,6 +5,7 @@ node_js:
 install:
   - sudo apt-get -y install python3-pip python-dev  
   - sudo pip3 install awscli
+  - npm install
 script:
   - npm run test
   - npm run build
