@@ -1,6 +1,21 @@
 language: node_js
 node_js:
   - "8"
+cache: pip
+install:
+    - pip install awscli
 script:
   - npm run test
   - npm run build
+deploy:
+  provider: s3
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  bucket: psycollect-ui
+  skip_cleanup: true
+  local_dir: build
+  upload_dir: $TRAVIS_COMMIT
+after_deploy:
+  aws s3 rm s3://psycollect-ui/dev/ --recursive
+  aws s3 cp s3://psycollect-ui/$TRAVIS_COMMIT/ s3://psycollect-ui/dev/ --recursive --acl public-read
+  aws cloudfront create-invalidation --distribution-id EDWXBJIFQH0UL --paths '/*'
