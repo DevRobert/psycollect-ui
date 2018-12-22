@@ -10,9 +10,9 @@ class DatePicker extends Component<DatePickerProps> {
     render() {
         return (
             <div className="datePicker">
-                <button className="btn btn-light" onClick={() => { this.props.navigateBack()}}>⯇</button>
+                <button className="btn btn-light" onClick={() => { this.props.navigateBack()}}>◀</button>
                 <span className="date">{ this.props.date }</span>
-                <button className="btn btn-light" onClick={() => { this.props.navigateForward()}}>⯈</button>
+                <button className="btn btn-light" onClick={() => { this.props.navigateForward()}}>▶</button>
             </div>
         )
     }
