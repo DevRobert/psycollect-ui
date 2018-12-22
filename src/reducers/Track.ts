@@ -36,7 +36,7 @@ export default (state: TrackState = defaultState, action: AnyAction): TrackState
         case FETCH_DAILY_REPORT_SUCCEEDED:
             return {
                 ...state,
-                info: "",
+                info: "Daily report loaded.",
                 error: "",
                 emotions: Object.keys(action.emotions).map(name => {
                     return {
@@ -99,7 +99,7 @@ export default (state: TrackState = defaultState, action: AnyAction): TrackState
         case PUSH_DAILY_REPORT_SUCCEEDED:
             return {
                 ...state,
-                info: "",
+                info: "Daily report saved.",
                 error: ""
             }
         
