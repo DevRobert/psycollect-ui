@@ -1,5 +1,6 @@
 import { Dispatch, AnyAction } from "redux";
 import * as AuthenticationApi from '../model/AuthenticationApi'
+import { writeTokenToCookie } from "../model/TokenCookieStore";
 
 export const LOGIN_REQUESTED = 'LOGIN_REQUESTED'
 export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED'
@@ -34,12 +35,17 @@ export function login(email: string, password: string): any {
 
         try {
             const loginResponse = await AuthenticationApi.login(email, password)
+            writeTokenToCookie(loginResponse.token)
             dispatch(loginSuceeded(loginResponse.token))
         }
         catch(e) {
             dispatch(loginFailed(e))
         }
     }
+}
+
+export function autoLogin(token: string) {
+    return loginSuceeded(token)
 }
 
 // Logout

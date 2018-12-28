@@ -4,18 +4,22 @@ import { createStore, applyMiddleware } from 'redux'
 import rootReducer from './reducers/index'
 import thunkMiddleware from 'redux-thunk'
 import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom';
-import Body from './components/Body';
-import Header from './components/Header';
+import { BrowserRouter } from 'react-router-dom'
+import Body from './components/Body'
+import Header from './components/Header'
+import { readTokenFromCookie } from './model/TokenCookieStore';
+import { autoLogin } from './actions/Authentication';
 
 const store = createStore(
   rootReducer,
   applyMiddleware(thunkMiddleware)
 )
 
-store.subscribe(() => {
-  console.log(store.getState())
-})
+const token = readTokenFromCookie()
+
+if(token) {
+  store.dispatch(autoLogin(token))
+}
 
 interface AppState {
   loggedIn: boolean
@@ -26,7 +30,7 @@ class App extends Component<{}, AppState> {
     super(props)
 
     this.state = {
-      loggedIn: false
+      loggedIn: store.getState().login.loggedIn
     }
 
     store.subscribe(() => {

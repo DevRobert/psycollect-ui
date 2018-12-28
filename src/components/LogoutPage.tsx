@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { deleteTokenFromCookie } from '../model/TokenCookieStore';
 
 interface LogoutProps {
     logout: () => void
@@ -6,6 +7,7 @@ interface LogoutProps {
 
 class LogoutPage extends Component<LogoutProps> {
     componentDidMount() {
+        deleteTokenFromCookie()
         this.props.logout()
     }
 
