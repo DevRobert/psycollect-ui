@@ -29,7 +29,7 @@ function loginFailed(error: Error) {
     }
 }
 
-export function login(email: string, password: string): any {
+export function login(email: string, password: string) {
     return async (dispatch: Dispatch) => {
         dispatch(loginRequested())
 

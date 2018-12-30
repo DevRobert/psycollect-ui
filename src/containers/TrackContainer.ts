@@ -17,19 +17,19 @@ const mapStateToProps = (state: State) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         fetchReport: () => {
-            dispatch(fetchDailyReport())
+            dispatch(fetchDailyReport() as any)
         },
         navigateBack: () => {
-            dispatch(navigateBack())
+            dispatch(navigateBack() as any)
         },
         navigateForward: () => {
-            dispatch(navigateForward())
+            dispatch(navigateForward() as any)
         },
         setEmotionValue: (name: string, value: number): void => {
-            dispatch(setEmotionValue(name, value))
+            dispatch(setEmotionValue(name, value) as any)
         },
         setActivityValue: (name: string, value: number): void => {
-            dispatch(setActivityValue(name, value))
+            dispatch(setActivityValue(name, value) as any)
         }
     }
 }

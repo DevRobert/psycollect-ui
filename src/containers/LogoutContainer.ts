@@ -2,8 +2,9 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { logout } from "../actions/Authentication";
 import LogoutPage from "../components/LogoutPage";
+import { State } from "../reducers";
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: State) => {
     return {}
 }
 

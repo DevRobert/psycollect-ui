@@ -1,4 +1,4 @@
-import { Dispatch, AnyAction } from "redux";
+import { Dispatch } from "redux";
 import * as TrackApi from '../model/TrackApi'
 import { State } from "../reducers";
 
@@ -39,7 +39,7 @@ function fetchDailyReportFailed(error: Error) {
     }
 }
 
-export function fetchDailyReport(): any {
+export function fetchDailyReport() {
     return (dispatch: Dispatch, getState: () => State) => {
         dispatch(fetchDailyReportRequested())
 
@@ -77,7 +77,7 @@ function pushDailyReportFailed(error: Error) {
     }
 }
 
-function pushDailyReport(): any {
+function pushDailyReport() {
     return (dispatch: Dispatch, getState: () => State) => {
         dispatch(pushDailyReportRequested())
 
@@ -110,7 +110,7 @@ function pushDailyReport(): any {
 
 // SetEmotionValue
 
-export function setEmotionValue(name: string, value: number): any {
+export function setEmotionValue(name: string, value: number) {
     return (dispatch: Dispatch, getState: () => State) => {
         dispatch({
             type: SET_EMOTION_VALUE,
@@ -118,13 +118,13 @@ export function setEmotionValue(name: string, value: number): any {
             value
         })
 
-        dispatch(pushDailyReport())
+        dispatch(pushDailyReport() as any)
     }
 }
 
 // SetActivityValue
 
-export function setActivityValue(name: string, value: number): any {
+export function setActivityValue(name: string, value: number) {
     return (dispatch: Dispatch, getState: () => State) => {
         dispatch({
             type: SET_ACTIVITY_VALUE,
@@ -132,30 +132,30 @@ export function setActivityValue(name: string, value: number): any {
             value
         })
 
-        dispatch(pushDailyReport())
+        dispatch(pushDailyReport() as any)
     }
 }
 
 // NavigateBack
 
-export function navigateBack(): any {
+export function navigateBack() {
     return (dispatch: Dispatch) => {
         dispatch({
             type: NAVIGATE_BACK
         })
 
-        dispatch(fetchDailyReport())
+        dispatch(fetchDailyReport() as any)
     }
 }
 
 // NavigateForward
 
-export function navigateForward(): any {
+export function navigateForward() {
     return (dispatch: Dispatch) => {
         dispatch({
             type: NAVIGATE_FORWARD
         })
 
-        dispatch(fetchDailyReport())
+        dispatch(fetchDailyReport() as any)
     }
 }
