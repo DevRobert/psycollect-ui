@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect, withRouter, RouteComponentProps } from 'react-router';
 import LoginContainer from '../containers/LoginContainer';
 import TrackContainer from '../containers/TrackContainer';
-import AccountPage from './AccountPage';
-import LogoutContainer from '../containers/LogoutContainer';
 import AnalyzeContainer from '../containers/AnalyzeContainer';
+import AccountContainer from '../containers/AccountContainer';
+import LogoutContainer from '../containers/LogoutContainer';
 
 interface HeaderProps extends RouteComponentProps {
     loggedIn: boolean
@@ -22,7 +22,7 @@ class Body extends Component<HeaderProps> {
                     { /* Authenticated User */ }
                     { this.props.loggedIn && <Route path="/track" component={TrackContainer}/> }
                     { this.props.loggedIn && <Route path="/analyze" component={AnalyzeContainer}/> }
-                    { this.props.loggedIn && <Route path="/account" component={AccountPage}/> }
+                    { this.props.loggedIn && <Route path="/account" component={AccountContainer}/> }
                     { this.props.loggedIn && <Route path="/logout" component={LogoutContainer}/> }
 
                     <Redirect from="*" to={this.props.loggedIn ? "/track" : "/login"}/>
