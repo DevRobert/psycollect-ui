@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import Body from './components/Body'
 import Header from './components/Header'
-import { readTokenFromCookie } from './model/TokenCookieStore';
+import { readTokenFromCookie } from './model/CookieStore';
 import { autoLogin } from './actions/Authentication';
 
 const store = createStore(

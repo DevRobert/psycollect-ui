@@ -1,6 +1,6 @@
-import { Dispatch, AnyAction } from "redux";
+import { Dispatch } from "redux";
 import * as AuthenticationApi from '../model/AuthenticationApi'
-import { writeTokenToCookie } from "../model/TokenCookieStore";
+import { writeTokenToCookie } from "../model/CookieStore";
 
 export const LOGIN_REQUESTED = 'LOGIN_REQUESTED'
 export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED'

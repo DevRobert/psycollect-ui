@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { deleteTokenFromCookie } from '../model/TokenCookieStore';
+import { deleteTokenFromCookie } from '../model/CookieStore';
 
 interface LogoutProps {
     logout: () => void
