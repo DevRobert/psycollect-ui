@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import Chart from 'chart.js'
 
 interface AnalyzePageProps {
-    fetchReport: () => void,
     info: string,
     error: string,
     data: {
         dates: string[],
         emotions: {[name: string]: number[]},
         activities: {[name: string]: number[]}
-    }|null
+    }|null,
+    fetchReport: () => void,
 }
 
 class AnalyzePage extends Component<AnalyzePageProps> {

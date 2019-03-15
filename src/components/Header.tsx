@@ -20,6 +20,7 @@ class Header extends Component<HeaderProps> {
                     <ul className="navbar-nav mr-auto">
                         { this.props.loggedIn && <NavListItem to="/track">Track</NavListItem> }
                         { this.props.loggedIn && <NavListItem to="/analyze">Analyze</NavListItem> }
+                        { this.props.loggedIn && <NavListItem to="/goals">Goals</NavListItem> }
                         { this.props.loggedIn && <NavListItem to="/account">Account</NavListItem> }
 
                         { !this.props.loggedIn && <NavListItem to="/login">Login</NavListItem> }

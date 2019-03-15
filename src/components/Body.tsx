@@ -3,6 +3,7 @@ import { Switch, Route, Redirect, withRouter, RouteComponentProps } from 'react-
 import LoginContainer from '../containers/LoginContainer';
 import TrackContainer from '../containers/TrackContainer';
 import AnalyzeContainer from '../containers/AnalyzeContainer';
+import GoalsContainer from '../containers/GoalsContainer';
 import AccountContainer from '../containers/AccountContainer';
 import LogoutContainer from '../containers/LogoutContainer';
 
@@ -22,6 +23,7 @@ class Body extends Component<HeaderProps> {
                     { /* Authenticated User */ }
                     { this.props.loggedIn && <Route path="/track" component={TrackContainer}/> }
                     { this.props.loggedIn && <Route path="/analyze" component={AnalyzeContainer}/> }
+                    { this.props.loggedIn && <Route path="/goals" component={GoalsContainer}/>}
                     { this.props.loggedIn && <Route path="/account" component={AccountContainer}/> }
                     { this.props.loggedIn && <Route path="/logout" component={LogoutContainer}/> }
 
